@@ -1,4 +1,7 @@
-module.exports = class User {
+const jwt = require('jsonwebtoken');
+
+const JWT_PRIVATE_KEY = "youraccesstokensecret";
+class User {
     constructor(id, lastname, firstname, email, password, gender, birthDate, createdAt, updatedAt, role) {
         this.id = id;
         this.lastname = lastname;
@@ -41,3 +44,4 @@ module.exports = class User {
         ]
     }
 }
+module.exports = User

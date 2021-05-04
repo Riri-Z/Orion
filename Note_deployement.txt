@@ -1,0 +1,6 @@
+title : deploiement sur un serveur linux , ssh , webstatic create react app , node 
+
+mettre les cors
+
+-- faire en local ---
+avec un proxy de create react app 
