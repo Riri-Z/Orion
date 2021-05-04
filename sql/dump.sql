@@ -97,7 +97,7 @@ CREATE TABLE IF NOT EXISTS `group_user_gru` (
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `message_mes` (
   `id_mes` INT NOT NULL AUTO_INCREMENT,
-  `mes_content` VARCHAR(255) NOT NULL,
+  `mes_content` TEXT NOT NULL,
   `mes_createdAt` DATE NOT NULL,
   `mes_readAt` DATE NULL,
   `mes_emitter` INT NOT NULL,
@@ -160,7 +160,7 @@ CREATE TABLE IF NOT EXISTS `user_badge_usb` (
   `id_bab` INT NOT NULL,
   PRIMARY KEY (`id_usb`),
   FOREIGN KEY (`id_usr`) REFERENCES `user_usr` (`id_usr`),
-  FOREIGN KEY (`id_bab`) REFERENCES `badge_bad` (`id_bab`)) ENGINE = InnoDB;
+  FOREIGN KEY (`id_bab`) REFERENCES `badge_bab` (`id_bab`)) ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
@@ -197,9 +197,9 @@ CREATE TABLE IF NOT EXISTS `answer_ans` (
   `id_ans` INT NOT NULL AUTO_INCREMENT,
   `ans_istrue` TINYINT NOT NULL,
   `ans_content` VARCHAR(255) NOT NULL,
-  `ans_istrue` INT NOT NULL,
+  `id_exa` INT NOT NULL,
   PRIMARY KEY (`id_ans`),
-  FOREIGN KEY (`ans_istrue`) REFERENCES `exam_exa` (`id_exa`)) ENGINE = InnoDB;
+  FOREIGN KEY (`id_exa`) REFERENCES `exam_exa` (`id_exa`)) ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
@@ -209,6 +209,7 @@ CREATE TABLE IF NOT EXISTS `funfact_fun` (
   `id_fun` INT NOT NULL AUTO_INCREMENT,
   `fun_content` VARCHAR(255) NOT NULL,
   `id_ans` INT NOT NULL,
+  PRIMARY KEY (`id_fun`),
   FOREIGN KEY (`id_ans`) REFERENCES `answer_ans` (`id_ans`)) ENGINE = InnoDB;
 
 
@@ -233,7 +234,7 @@ CREATE TABLE IF NOT EXISTS `choice_cho` (
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `post_pos` (
   `id_pos` INT NOT NULL AUTO_INCREMENT,
-  `pos_content` VARCHAR(255) NOT NULL,
+  `pos_content` TEXT NOT NULL,
   `pos_createdAt` INT NOT NULL,
   `pos_updateAd` DATE NULL,
   `pos_deletedAt` DATE NULL,
