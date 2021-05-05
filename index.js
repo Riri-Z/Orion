@@ -1,18 +1,18 @@
 const express = require('express');
-
 const app = express();
-
 const ports = process.env.PORT || 3000;
-
 const errorController = require('./controllers/error');
-
-const usersRoutes = require('./routes/user.routes.js');
 
 // parser
 app.use(express.urlencoded({extended: true}));
 app.use(express.json())
 
+// routes access
+const usersRoutes = require('./routes/user.routes.js');
+const gendersRoutes = require('./routes/gender.routes.js');
+
 app.use('/users', usersRoutes);
+app.use('/genders', gendersRoutes);
 
 
 // error management
