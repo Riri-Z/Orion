@@ -3,7 +3,7 @@ const router = require('express').Router();
 
 router.post('/', userBadgesController.createUserBadge);
 router.get('/', userBadgesController.getAllUserBadge);
-router.patch('/:id', userBadgesController.putUserBadge);
+router.put('/:id', userBadgesController.putUserBadge);
 router.delete('/:id', userBadgesController.deleteUserBadge);
 
 module.exports = router;
