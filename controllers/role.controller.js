@@ -44,7 +44,7 @@ exports.putRole = async (req, res, next) => {
 exports.deleteRole = async (req, res, next) => {
     try{
         const deleteRoleResponse = await Role.delete(req.params.id);
-        res.status(201).json(deleteRoleResponse);
+        res.status(204).json(deleteRoleResponse);
     }catch(err){
         if(!err.statusCode){
             err.statusCode = 500

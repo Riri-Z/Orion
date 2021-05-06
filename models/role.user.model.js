@@ -12,13 +12,10 @@ module.exports = class UserRole {
     }
     
     static create(newUserRole) {
-        const {id_rol, id_usr}  = newUserRole;
-        return db.query('INSERT INTO role_user_rus(id_rol, id_usr) VALUES (?, ?)' , [id_rol, id_usr]);
+        return db.query('INSERT INTO role_user_rus(id_rol, id_usr) VALUES (?, ?)' , [newUserRole.id_rol, newUserRole.id_usr]);
     }
 
     static update(id, userRole) {
-        // const {id_rus = id, id_rol, id_usr}  = userRole;
-        // return db.query('UPDATE role_user_rus SET id_rol = ?, id_usr = ? WHERE id_rus = ?' , [id_rol, id_usr, id_rus]);
         userRole.id_rus = id;
         return db.query('UPDATE role_user_rus SET id_rol = ?, id_usr = ? WHERE id_rus = ?' , [userRole.id_rol, userRole.id_usr, userRole.id_rus]);
     }
