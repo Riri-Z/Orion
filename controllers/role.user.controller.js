@@ -17,7 +17,7 @@ exports.createUserRole = async (req, res, next) => {
     try{
      const userRole = new UserRole(clientPayload)
      const data = await UserRole.create(userRole)
-     res.status(201).send({data})
+     res.status(204).send({data})
     }catch(err){  
          if(!err.statusCode){
             err.statusCode = 500

@@ -17,7 +17,7 @@ exports.createUser = async (req, res, next) => {
     try{
      const user = new User(clientPayload)
      const data = await User.create(user)
-     res.status(201).send({data})
+     res.status(204).send({data})
     }catch(err){  
          if(!err.statusCode){
             err.statusCode = 500
