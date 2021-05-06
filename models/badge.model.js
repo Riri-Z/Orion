@@ -25,7 +25,6 @@ module.exports = class Badge {
 
     static update(id, badge) {
         const {
-            id_bab = Number(id),
             bab_name, 
             bab_description
         } = badge;

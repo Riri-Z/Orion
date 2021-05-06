@@ -21,6 +21,6 @@ module.exports = class Like {
     }
 
     static delete(id) {
-        return db.query('DELETE FROM like_lik WHERE id_gen = ?' , [id]);
+        return db.query('DELETE FROM like_lik WHERE id_lik = ?' , [id]);
     }
 }
