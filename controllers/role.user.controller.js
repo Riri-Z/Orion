@@ -17,7 +17,7 @@ exports.createUserRole = async (req, res, next) => {
     try{
      const userRole = new UserRole(clientPayload)
      const data = await UserRole.create(userRole)
-     res.status(204).send({data})
+     res.status(201).send({data})
     }catch(err){  
          if(!err.statusCode){
             err.statusCode = 500
@@ -43,7 +43,7 @@ exports.putUserRole = async (req, res, next) => {
 exports.deleteUserRole = async (req, res, next) => {
     try{
         const deleteUserRoleResponse = await UserRole.delete(req.params.id);
-        res.status(201).json(deleteUserRoleResponse);
+        res.status(204).json(deleteUserRoleResponse);
     }catch(err){
         if(!err.statusCode){
             err.statusCode = 500
