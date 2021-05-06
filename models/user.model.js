@@ -55,7 +55,7 @@ module.exports = class User {
             usr_updatedAt, 
             usr_avatar, 
             id_gen}  = user;
-     
+
         return db.query('UPDATE user_usr SET usr_firstname = ?, usr_lastname = ?, usr_email = ?, usr_password = ?, usr_birthDate = ?, usr_createdAt = ?, usr_updatedAt = ?, usr_avatar = ?, id_gen = ? WHERE id_usr = ?' , [
             usr_firstname, 
             usr_lastname, 
