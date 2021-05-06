@@ -11,13 +11,12 @@ module.exports = class Role {
     }
     
     static create(newRole) {
-        const {rol_name}  = newRole;
-        return db.query('INSERT INTO role_rol(rol_name) VALUES (?)' , [rol_name]);
+        return db.query('INSERT INTO role_rol(rol_name) VALUES (?)' , [newRole.rol_name]);
     }
 
     static update(id, role) {
-        const { id_rol = id, rol_name}  = role;
-        return db.query('UPDATE role_rol SET rol_name = ? WHERE id_rol = ?' , [rol_name,id_rol]);
+        role.id_rol = id;
+        return db.query('UPDATE role_rol SET rol_name = ? WHERE id_rol = ?' , [role.rol_name,role.id_rol]);
     }
 
     static delete(id) {

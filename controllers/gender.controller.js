@@ -45,7 +45,7 @@ exports.putGender = async (req, res, next) => {
 exports.deleteGender = async (req, res, next) => {
     try{
         const deleteGenderResponse = await Gender.delete(req.params.id);
-        res.status(201).json(deleteGenderResponse);
+        res.status(204).json(deleteGenderResponse);
     }catch(err){
         if(!err.statusCode){
             err.statusCode = 500
