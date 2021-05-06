@@ -11,10 +11,12 @@ app.use(express.json())
 const usersRoutes = require('./routes/user.routes.js');
 const gendersRoutes = require('./routes/gender.routes.js');
 const rolesRoutes = require('./routes/role.routes.js');
+const userRolesRoutes = require('./routes/role.user.routes.js');
 
 app.use('/users', usersRoutes);
 app.use('/genders', gendersRoutes);
 app.use('/roles', rolesRoutes);
+app.use('/user-roles', userRolesRoutes);
 
 
 // error management
