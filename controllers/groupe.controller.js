@@ -14,12 +14,9 @@ exports.getAllGroupes = async (req, res, next) => {
 
 exports.createGroupe = async (req, res, next) => {
     const  clientPayload = req.body 
-    console.log('clientPayload' , clientPayload ) // { grp_name: 'groupe 1' }
     try{
      const groupe = new Groupe(clientPayload)
-     console.log("groupe", groupe)
      const data = await Groupe.create(groupe)
-     console.log("data", data)
      res.status(201).send({data})
     }catch(err){  
          if(!err.statusCode){

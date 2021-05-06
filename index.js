@@ -16,6 +16,7 @@ const likesRoutes = require ('./routes/like.routes.js')
 const userRolesRoutes = require('./routes/role.user.routes.js');
 const groupeRoutes = require('./routes/groupe.routes.js');
 const userLikesRoutes = require('./routes/like.user.routes.js');
+const userBadgesRoutes = require('./routes/badge.user.routes.js');
 const groupUsersRoutes = require('./routes/groupe.user.routes.js');
 
 app.use('/users', usersRoutes);
@@ -26,6 +27,7 @@ app.use('/likes', likesRoutes);
 app.use('/user-roles', userRolesRoutes);
 app.use('/groups', groupeRoutes);
 app.use('/user-likes', userLikesRoutes);
+app.use('/user-badges', userBadgesRoutes);
 app.use('/user-groups', groupUsersRoutes);
 
 
