@@ -3,7 +3,7 @@ const router = require('express').Router();
 
 router.post('/', userLikesController.createUserLike);
 router.get('/',userLikesController.getAllUserLikes);
-router.patch('/:id',userLikesController.putUserLike);
+router.put('/:id',userLikesController.putUserLike);
 router.delete('/:id',userLikesController.deleteUserLike);
 
 module.exports = router;

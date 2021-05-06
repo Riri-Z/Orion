@@ -20,7 +20,7 @@ module.exports = class UserLike {
         // const {id_rus = id, id_rol, id_usr}  = UserLike;
         // return db.query('UPDATE role_user_rus SET id_rol = ?, id_usr = ? WHERE id_rus = ?' , [id_rol, id_usr, id_rus]);
         UserLike.id_usl = id;
-        return db.query('UPDATE user_lik_usl SET id_usl = ?, id_lik = ? WHERE id_usr = ?' , [UserLike.id_usr, UserLike.id_lik, UserLike.id_usr]);
+        return db.query('UPDATE user_lik_usl SET id_usr = ?, id_lik = ? WHERE id_usl = ?' ,  [UserLike.id_usr, UserLike.id_lik, UserLike.id_usl]);
     }
 
     static delete(id) {
