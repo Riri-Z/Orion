@@ -1,9 +1,9 @@
-const UserRole = require('../models/role.user.model');
+const User = require('../models/user.model');
 
-exports.getAllUserRoles = async (req, res, next) => {
+exports.getAllUsers = async (req, res, next) => {
     try{
-        const [allUserRoles] = await UserRole.fetchAll();
-        res.status(200).json(allUserRoles);
+        const [allUsers] = await User.fetchAll();
+        res.status(200).json(allUsers);
     }catch(err){
         if(!err.statusCode){
             err.statusCode = 500
@@ -12,11 +12,11 @@ exports.getAllUserRoles = async (req, res, next) => {
     }
 };
 
-exports.createUserRole = async (req, res, next) => {
+exports.createUser = async (req, res, next) => {
     const  clientPayload = req.body 
     try{
-     const userRole = new UserRole(clientPayload)
-     const data = await UserRole.create(userRole)
+     const user = new User(clientPayload)
+     const data = await User.create(user)
      res.status(201).send({data})
     }catch(err){  
          if(!err.statusCode){
@@ -26,12 +26,12 @@ exports.createUserRole = async (req, res, next) => {
     }
 };
 
-exports.putUserRole = async (req, res, next) => {
+exports.putUser = async (req, res, next) => {
     try{
         const id = req.params.id
-        const userRole = req.body
-        const putUserRoleResponse = await UserRole.update(id, new UserRole(userRole));
-        res.status(201).json(putUserRoleResponse);
+        const user = req.body
+        const putUserResponse = await User.update(id, new User(user));
+        res.status(201).json(putUserResponse);
     }catch(err){
         if(!err.statusCode){
             err.statusCode = 500
@@ -40,10 +40,10 @@ exports.putUserRole = async (req, res, next) => {
     }
 };
 
-exports.deleteUserRole = async (req, res, next) => {
+exports.deleteUser = async (req, res, next) => {
     try{
-        const deleteUserRoleResponse = await UserRole.delete(req.params.id);
-        res.status(204).json(deleteUserRoleResponse);
+        const deleteUserResponse = await User.delete(req.params.id);
+        res.status(204).json(deleteUserResponse);
     }catch(err){
         if(!err.statusCode){
             err.statusCode = 500
