@@ -12,13 +12,28 @@ module.exports = class Badge {
     }
     
     static create(newBadge) {
-        const {bab_name,bab_description}  = newBadge
-        return db.query('INSERT INTO badge_bab(bab_name,bab_description) VALUES (?,?)' , [bab_name,bab_description]);
+        const {
+            bab_name,
+            bab_description
+        } = newBadge
+
+        return db.query('INSERT INTO badge_bab(bab_name,bab_description) VALUES (?, ?)', [
+            bab_name,
+            bab_description
+        ]);
     }
 
     static update(id, badge) {
-        const { id_bab = id, bab_name,bab_description}  = badge;
-        return db.query('UPDATE badge_bab SET bab_name = ?, bab_description = ?, WHERE id_bab = ?' , [bab_name,bab_description,id_bab]);
+        const {
+            id_bab = Number(id),
+            bab_name, 
+            bab_description
+        } = badge;
+        return db.query('UPDATE badge_bab SET bab_name = ?, bab_description = ? WHERE id_bab = ?', [
+            bab_name,
+            bab_description,
+            Number(id)
+        ]);
     }
 
     static delete(id) {
