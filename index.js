@@ -12,11 +12,13 @@ const usersRoutes = require('./routes/user.routes.js');
 const gendersRoutes = require('./routes/gender.routes.js');
 const rolesRoutes = require('./routes/role.routes.js');
 const badgesRoutes = require ('./routes/badge.routes.js')
+const likesRoutes = require ('./routes/like.routes.js')
 
 app.use('/users', usersRoutes);
 app.use('/genders', gendersRoutes);
 app.use('/roles', rolesRoutes);
 app.use('/badges', badgesRoutes);
+app.use('/likes', likesRoutes);
 
 
 // error management
