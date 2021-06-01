@@ -18,6 +18,7 @@ const groupeRoutes = require('./routes/groupe.routes.js');
 const userLikesRoutes = require('./routes/like.user.routes.js');
 const userBadgesRoutes = require('./routes/badge.user.routes.js');
 const groupUsersRoutes = require('./routes/groupe.user.routes.js');
+const postRoutes = require('./routes/post.routes.js');
 
 app.use('/users', usersRoutes);
 app.use('/genders', gendersRoutes);
@@ -29,6 +30,7 @@ app.use('/groups', groupeRoutes);
 app.use('/user-likes', userLikesRoutes);
 app.use('/user-badges', userBadgesRoutes);
 app.use('/user-groups', groupUsersRoutes);
+app.use('/posts', postRoutes);
 
 
 // error management
