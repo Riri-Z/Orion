@@ -234,6 +234,8 @@ CREATE TABLE IF NOT EXISTS `post_pos` (
   `pos_deletedAt` DATE NULL,
   `id_exa` INT NULL,
   `id_usr` INT NOT NULL,
+  `id_parent` INT NULL,
   PRIMARY KEY (`id_pos`),
   FOREIGN KEY (`id_exa`) REFERENCES `exam_exa` (`id_exa`),
+  FOREIGN KEY (`id_parent`) REFERENCES `post_pos` (`id_pos`),
   FOREIGN KEY (`id_usr`) REFERENCES `user_usr` (`id_usr`)) ENGINE = InnoDB;
