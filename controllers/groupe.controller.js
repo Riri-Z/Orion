@@ -14,7 +14,7 @@ exports.getAllGroupes = async (req, res, next) => {
 
 exports.createGroupe = async (req, res, next) => {
     const  clientPayload = req.body 
-    console.log('clientPayload' , clientPayload ) // { grp_name: 'groupe 1' }
+    console.log('clientPayload' , clientPayload )
     try{
      const groupe = new Groupe(clientPayload)
      console.log("groupe", groupe)
