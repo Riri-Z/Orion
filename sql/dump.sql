@@ -128,11 +128,11 @@ CREATE TABLE IF NOT EXISTS `like_lik` (
   `lik_createdAt` DATE NOT NULL,
   `id_usr` INT NOT NULL,
   `id_pos` INT NOT NULL,
-  PRIMARY KEY (`id_lik`)
-  FOREIGN KEY (`id_usr`) REFERENCES `user_usr` (`id_usr`)
+  PRIMARY KEY (`id_lik`),
+  FOREIGN KEY (`id_usr`) REFERENCES `user_usr` (`id_usr`),
   FOREIGN KEY (`id_pos`) REFERENCES `post_pos` (`id_pos`)) ENGINE = InnoDB;
   
-  ALTER TABLE `like_lik` ADD UNIQUE unique_index('id_usr', 'id_pos')
+  ALTER TABLE `like_lik` ADD UNIQUE ('id_usr', 'id_pos');
 
 
 -- -----------------------------------------------------
