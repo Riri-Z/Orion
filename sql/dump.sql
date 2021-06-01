@@ -126,19 +126,13 @@ CREATE TABLE IF NOT EXISTS `block_blo` (
 CREATE TABLE IF NOT EXISTS `like_lik` (
   `id_lik` INT NOT NULL AUTO_INCREMENT,
   `lik_createdAt` DATE NOT NULL,
-  PRIMARY KEY (`id_lik`)) ENGINE = InnoDB;
-
-
--- -----------------------------------------------------
--- Table `orion_db`.`user_lik_usl`
--- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `user_lik_usl` (
-  `id_usl` INT NOT NULL AUTO_INCREMENT,
-  `id_lik` INT NOT NULL,
   `id_usr` INT NOT NULL,
-  PRIMARY KEY (`id_usl`),
-  FOREIGN KEY (`id_lik`) REFERENCES `like_lik` (`id_lik`),
-  FOREIGN KEY (`id_usr`) REFERENCES `user_usr` (`id_usr`)) ENGINE = InnoDB;
+  `id_pos` INT NOT NULL,
+  PRIMARY KEY (`id_lik`)
+  FOREIGN KEY (`id_usr`) REFERENCES `user_usr` (`id_usr`)
+  FOREIGN KEY (`id_pos`) REFERENCES `post_pos` (`id_pos`)) ENGINE = InnoDB;
+  
+  ALTER TABLE `like_lik` ADD UNIQUE unique_index('id_usr', 'id_pos')
 
 
 -- -----------------------------------------------------
