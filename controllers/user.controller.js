@@ -13,16 +13,16 @@ exports.getAllUsers = async (req, res, next) => {
 };
 
 exports.createUser = async (req, res, next) => {
-    const  clientPayload = req.body 
-    try{
-     const user = new User(clientPayload)
-     const data = await User.create(user)
-     res.status(201).send({data})
-    }catch(err){  
-         if(!err.statusCode){
+    const clientPayload = req.body
+    try {
+        const user = new User(clientPayload)
+        const data = await User.create(user)
+        res.status(201).send({ data })
+    } catch (err) {
+        if (!err.statusCode) {
             err.statusCode = 500
         }
-        next(err); 
+        next(err);
     }
 };
 

@@ -1,4 +1,5 @@
 const express = require('express');
+const bodyParser= require('body-parser')
 const app = express();
 const ports = process.env.PORT || 3000;
 const errorController = require('./controllers/error');
@@ -19,6 +20,7 @@ const userLikesRoutes = require('./routes/like.user.routes.js');
 const userBadgesRoutes = require('./routes/badge.user.routes.js');
 const groupUsersRoutes = require('./routes/groupe.user.routes.js');
 
+app.use('/uploads', express.static('uploads'));
 app.use('/users', usersRoutes);
 app.use('/genders', gendersRoutes);
 app.use('/roles', rolesRoutes);
