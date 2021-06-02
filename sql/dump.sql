@@ -126,19 +126,13 @@ CREATE TABLE IF NOT EXISTS `block_blo` (
 CREATE TABLE IF NOT EXISTS `like_lik` (
   `id_lik` INT NOT NULL AUTO_INCREMENT,
   `lik_createdAt` DATE NOT NULL,
-  PRIMARY KEY (`id_lik`)) ENGINE = InnoDB;
-
-
--- -----------------------------------------------------
--- Table `orion_db`.`user_lik_usl`
--- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `user_lik_usl` (
-  `id_usl` INT NOT NULL AUTO_INCREMENT,
-  `id_lik` INT NOT NULL,
   `id_usr` INT NOT NULL,
-  PRIMARY KEY (`id_usl`),
-  FOREIGN KEY (`id_lik`) REFERENCES `like_lik` (`id_lik`),
-  FOREIGN KEY (`id_usr`) REFERENCES `user_usr` (`id_usr`)) ENGINE = InnoDB;
+  `id_pos` INT NOT NULL,
+  PRIMARY KEY (`id_lik`),
+  FOREIGN KEY (`id_usr`) REFERENCES `user_usr` (`id_usr`),
+  FOREIGN KEY (`id_pos`) REFERENCES `post_pos` (`id_pos`)) ENGINE = InnoDB;
+  
+  ALTER TABLE `like_lik` ADD UNIQUE ('id_usr', 'id_pos');
 
 
 -- -----------------------------------------------------
@@ -235,13 +229,14 @@ CREATE TABLE IF NOT EXISTS `choice_cho` (
 CREATE TABLE IF NOT EXISTS `post_pos` (
   `id_pos` INT NOT NULL AUTO_INCREMENT,
   `pos_content` TEXT NOT NULL,
-  `pos_createdAt` INT NOT NULL,
-  `pos_updateAd` DATE NULL,
+  `pos_createdAt` DATE NOT NULL,
+  `pos_updatedAT` DATE NULL,
   `pos_deletedAt` DATE NULL,
   `id_exa` INT NULL,
   `id_parent` INT NULL,
   `id_usr` INT NOT NULL,
+  `id_parent` INT NULL,
   PRIMARY KEY (`id_pos`),
   FOREIGN KEY (`id_exa`) REFERENCES `exam_exa` (`id_exa`),
-  FOREIGN KEY (`id_parent`) REFERENCES `post_pos`(`id_pos`),
+  FOREIGN KEY (`id_parent`) REFERENCES `post_pos` (`id_pos`),
   FOREIGN KEY (`id_usr`) REFERENCES `user_usr` (`id_usr`)) ENGINE = InnoDB;
