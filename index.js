@@ -1,7 +1,7 @@
 const express = require('express');
 const app = express();
 const ports = process.env.PORT || 3000;
-const errorController = require('./controllers/error');
+const errorHandler = require('./controllers/error');
 
 // parser
 app.use(express.urlencoded({extended: true}));
@@ -18,8 +18,9 @@ const groupeRoutes = require('./routes/groupe.routes.js');
 const userLikesRoutes = require('./routes/like.user.routes.js');
 const userBadgesRoutes = require('./routes/badge.user.routes.js');
 const groupUsersRoutes = require('./routes/groupe.user.routes.js');
+const postRoutes = require('./routes/post.routes.js');
 
-app.use('/users', usersRoutes);
+app.use('/users',  usersRoutes);
 app.use('/genders', gendersRoutes);
 app.use('/roles', rolesRoutes);
 app.use('/badges', badgesRoutes);
@@ -29,17 +30,12 @@ app.use('/groups', groupeRoutes);
 app.use('/user-likes', userLikesRoutes);
 app.use('/user-badges', userBadgesRoutes);
 app.use('/user-groups', groupUsersRoutes);
+app.use('/posts', postRoutes);
 
 
 // error management
-app.use((req, res, next) => {
-    res.setHeader('Access-Control-Allow-Origin', '*');
-    res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE');
-    res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization');
-    next();
-})
-app.use(errorController.get404);
-app.use(errorController.get500);
+app.use(errorHandler.errorAuthorisation);
+app.use('*', errorHandler.errorRouteHandler);
 
 
 app.listen(ports, () => console.log(`Listening on port ${ports}`));
