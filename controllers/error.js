@@ -24,7 +24,6 @@ exports.errorAuthorisation = (req, res, next) => {
 }
 
 exports.errorRouteHandler = (req, res) => {
-    console.log('test');
     res.status(404).json({
         error: 'Not found'
     });

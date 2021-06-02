@@ -13,7 +13,8 @@ exports.getAll = async (req, res, next) => {
 };
 
 exports.create = async (req, res, next) => {
-    const clientPayload = req.body
+
+    const clientPayload = req.files.sampleFile ?  {...req.body, bab_image : req.files.sampleFile.name } : req.body
     try {
         const badge = new Badge(clientPayload)
         const data = await Badge.create(badge)
@@ -30,9 +31,8 @@ exports.create = async (req, res, next) => {
 exports.put = async (req, res, next) => {
     try {
         const id = req.params.id
-        const badge = req.body
-
-        const putBadgeResponse = await Badge.update(id, new Badge(badge));
+        const clientPayload = req.files.sampleFile ?  {...req.body, bab_image : req.files.sampleFile.name } : req.body
+        const putBadgeResponse = await Badge.update(id, new Badge(clientPayload));
         res.status(201).json(putBadgeResponse);
     } catch (err) {
         if (!err.statusCode) {

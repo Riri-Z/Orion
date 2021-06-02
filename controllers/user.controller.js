@@ -23,3 +23,9 @@ exports.deleteUser = async (req, res, next) => {
     const deleteUserResponse = await User.delete(req.params.id);
     res.status(204).json(deleteUserResponse);
 };
+
+
+exports.upload = async (req,res) =>  {
+    const picture = req.file ? req.file.path.replace('\\', '/') : null;
+    res.status(200).send( '/' + picture);
+}

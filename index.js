@@ -2,12 +2,14 @@ const express = require('express');
 const bodyParser = require('body-parser')
 const app = express();
 const ports = process.env.PORT || 3000;
+const expressFileUpload = require('express-fileupload')
 const errorHandler = require('./controllers/error');
 
 // parser
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json())
-
+app.use(expressFileUpload());
+app.use(express.static('./middleware/uploads'));
 // routes access
 const usersRoutes = require('./routes/user.routes.js');
 const gendersRoutes = require('./routes/gender.routes.js');
@@ -21,7 +23,6 @@ const userBadgesRoutes = require('./routes/badge.user.routes.js');
 const groupUsersRoutes = require('./routes/groupe.user.routes.js');
 const postRoutes = require('./routes/post.routes.js');
 
-app.use('/uploads', express.static('uploads'));
 app.use('/users', usersRoutes);
 app.use('/genders', gendersRoutes);
 app.use('/roles', rolesRoutes);

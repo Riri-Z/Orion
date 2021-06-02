@@ -5,21 +5,24 @@ module.exports = class Badge {
         this.id_bab = badge.id_bab;
         this.bab_name = badge.bab_name;
         this.bab_description = badge.bab_description;
+        this.bab_image = badge.bab_image;
     }
 
     static fetchAll() {
         return db.execute('SELECT * FROM badge_bab');
     }
-    
+
     static create(newBadge) {
         const {
             bab_name,
-            bab_description
+            bab_description,
+            bab_image
         } = newBadge
 
-        return db.query('INSERT INTO badge_bab(bab_name,bab_description) VALUES (?, ?)', [
+        return db.query('INSERT INTO badge_bab(bab_name,bab_description,bab_image) VALUES (?, ?,?)', [
             bab_name,
-            bab_description
+            bab_description,
+            bab_image
         ]);
     }
 
