@@ -229,8 +229,8 @@ CREATE TABLE IF NOT EXISTS `choice_cho` (
 CREATE TABLE IF NOT EXISTS `post_pos` (
   `id_pos` INT NOT NULL AUTO_INCREMENT,
   `pos_content` TEXT NOT NULL,
-  `pos_createdAt` INT NOT NULL,
-  `pos_updateAd` DATE NULL,
+  `pos_createdAt` DATE NOT NULL,
+  `pos_updatedAT` DATE NULL,
   `pos_deletedAt` DATE NULL,
   `id_exa` INT NULL,
   `id_usr` INT NOT NULL,
