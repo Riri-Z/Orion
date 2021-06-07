@@ -6,15 +6,16 @@ exports.getAllUsers = async (req, res, next) => {
 };
 
 exports.createUser = async (req, res, next) => {
-    const  clientPayload = req.body 
+    const clientPayload = req.files?.sampleFile ?  {...req.body, usr_image : req.files.sampleFile.name.toLowerCase() } : req.body
     const user = new User(clientPayload)
     const data = await User.create(user)
     res.status(201).send({data})
 };
 
 exports.putUser = async (req, res, next) => {
+    const clientPayload = req.files?.sampleFile ?  {...req.body, usr_image : req.files.sampleFile.name.toLowerCase() } : req.body
     const id = req.params.id
-    const user = req.body
+    const user = clientPayload
     const putUserResponse = await User.update(id, new User(user));
     res.status(201).json(putUserResponse);
 };

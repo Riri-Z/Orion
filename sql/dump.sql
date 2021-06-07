@@ -33,20 +33,8 @@ CREATE TABLE IF NOT EXISTS `user_usr` (
   PRIMARY KEY (`id_usr`),
   FOREIGN KEY (`id_gen`) REFERENCES `gender_gen` (`id_gen`)) ENGINE = InnoDB;
 
-CREATE TABLE IF NOT EXISTS `image_img` (
-  `id_img` INT NOT NULL AUTO_INCREMENT,
-  `img_name` VARCHAR(45) NOT NULL,
-  `img_description` VARCHAR(45) ,
-  PRIMARY KEY (`id_img`)) ENGINE = InnoDB;
-  
-CREATE TABLE IF NOT EXISTS `user_image_usi` (
-  `id_usi` INT NOT NULL AUTO_INCREMENT,
-    `id_img` INT NULL,
-    `id_usr` INT NULL,
-  PRIMARY KEY (`id_usi`),
-  FOREIGN KEY (`id_img`) REFERENCES `image_img` (`id_img`),
-FOREIGN KEY (`id_usr`) REFERENCES `user_usr` (`id_usr`)) ENGINE = InnoDB;
-
+  ALTER TABLE `user_usr`
+  CHANGE `usr_avatar` `usr_image` char(255) NULL
 
 -- -----------------------------------------------------
 -- Table `orion_db`.`role_rol`

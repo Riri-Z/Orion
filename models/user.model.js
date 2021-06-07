@@ -11,6 +11,7 @@ module.exports = class User {
         this.usr_createdAt = user.usr_createdAt;
         this.usr_updatedAt = user.usr_updatedAt;
         this.usr_avatar = user.usr_avatar;
+        this.usr_image = user.usr_image;
         this.id_gen = user.id_gen;
     }
 
@@ -19,7 +20,7 @@ module.exports = class User {
     }
     
     static create(newUser) {
-        return db.query('INSERT INTO user_usr(usr_firstname, usr_lastname,usr_email, usr_password, usr_birthDate, usr_createdAt, usr_updatedAt, usr_avatar, id_gen) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)' , [
+        return db.query('INSERT INTO user_usr(usr_firstname, usr_lastname,usr_email, usr_password, usr_birthDate, usr_createdAt, usr_updatedAt, usr_avatar,usr_image, id_gen) VALUES (?, ?, ?, ?, ?, ?, ?, ?,?, ?)' , [
             newUser.usr_firstname, 
             newUser.usr_lastname, 
             newUser.usr_email, 
@@ -28,13 +29,14 @@ module.exports = class User {
             newUser.usr_createdAt, 
             newUser.usr_updatedAt, 
             newUser.usr_avatar, 
+            newUser.usr_image, 
             newUser.id_gen])
     }
 
     static update(id, user) {
         user.id_usr = id;
      
-        return db.query('UPDATE user_usr SET usr_firstname = ?, usr_lastname = ?, usr_email = ?, usr_password = ?, usr_birthDate = ?, usr_createdAt = ?, usr_updatedAt = ?, usr_avatar = ?, id_gen = ? WHERE id_usr = ?' , [
+        return db.query('UPDATE user_usr SET usr_firstname = ?, usr_lastname = ?, usr_email = ?, usr_password = ?, usr_birthDate = ?, usr_createdAt = ?, usr_updatedAt = ?, usr_avatar = ?, usr_image = ?,  id_gen = ? WHERE id_usr = ?', [
             user.usr_firstname, 
             user.usr_lastname, 
             user.usr_email, 
@@ -43,6 +45,7 @@ module.exports = class User {
             user.usr_createdAt, 
             user.usr_updatedAt, 
             user.usr_avatar, 
+            user.usr_image,
             user.id_gen,
             user.id_usr
         ])

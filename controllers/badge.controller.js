@@ -14,7 +14,7 @@ exports.getAll = async (req, res, next) => {
 
 exports.create = async (req, res, next) => {
 
-    const clientPayload = req.files.sampleFile ?  {...req.body, bab_image : req.files.sampleFile.name } : req.body
+    const clientPayload = req.files?.sampleFile ?  {...req.body, bab_image : req.files.sampleFile.name.toLowerCase() } : req.body
     try {
         const badge = new Badge(clientPayload)
         const data = await Badge.create(badge)
@@ -23,7 +23,6 @@ exports.create = async (req, res, next) => {
         if (!err.statusCode) {
             err.statusCode = 500
         }
-        next(err);
     }
 };
 

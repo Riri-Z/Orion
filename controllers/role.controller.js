@@ -13,16 +13,16 @@ exports.getAllRoles = async (req, res, next) => {
 };
 
 exports.createRole = async (req, res, next) => {
-    const  clientPayload = req.body 
-    try{
-     const role = new Role(clientPayload)
-     const data = await Role.create(role)
-     res.status(201).send({data})
-    }catch(err){  
-         if(!err.statusCode){
+    const clientPayload = req.body
+    try {
+        const role = new Role(clientPayload)
+        const data = await Role.create(role)
+        res.status(201).send({ data })
+    } catch (err) {
+        if (!err.statusCode) {
             err.statusCode = 500
         }
-        next(err); 
+        next(err);
     }
 };
 
@@ -30,7 +30,7 @@ exports.putRole = async (req, res, next) => {
     try{
         const id = req.params.id
         const role = req.body
-
+        
         const putRoleResponse = await Role.update(id, new Role(role));
         res.status(201).json(putRoleResponse);
     }catch(err){

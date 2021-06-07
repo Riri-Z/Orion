@@ -9,7 +9,7 @@ const errorHandler = require('./controllers/error');
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json())
 app.use(expressFileUpload());
-app.use(express.static('./middleware/uploads'));
+app.use(express.static('middleware'));  // to fetch data http://localhost:3000/uploads/200.png => http://localhost:3000/uploads/ + `filename`
 // routes access
 const usersRoutes = require('./routes/user.routes.js');
 const gendersRoutes = require('./routes/gender.routes.js');
