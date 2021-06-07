@@ -247,6 +247,7 @@ CREATE TABLE IF NOT EXISTS `post_pos` (
   `pos_updatedAT` DATE NULL,
   `pos_deletedAt` DATE NULL,
   `id_exa` INT NULL,
+  `id_parent` INT NULL,
   `id_usr` INT NOT NULL,
   `id_parent` INT NULL,
   PRIMARY KEY (`id_pos`),
