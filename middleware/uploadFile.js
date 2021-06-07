@@ -33,8 +33,11 @@ const uploadResponse = async (req, res, next) => {
 
     await cloudinary.uploader.upload(
       "middleware/uploads/" + req.files.sampleFile.name.toLowerCase())
+      .then(val => req.body = {...req.body, usr_imgURL:val.secure_url})
+      
+      
 
-    next()
+     next() 
   } catch (e) {
     res.json(e)
   }
