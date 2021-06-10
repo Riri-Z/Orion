@@ -1,5 +1,5 @@
 const { cloudinary } = require('../utils/cloudinary')
-
+const fs = require('fs')
 const upload = (req, res, next) => {
 
   let sampleFile;
@@ -33,11 +33,16 @@ const uploadResponse = async (req, res, next) => {
 
     await cloudinary.uploader.upload(
       "middleware/uploads/" + req.files.sampleFile.name.toLowerCase())
-      .then(val => req.body = {...req.body, usr_imgURL:val.secure_url})
-      
-      
+      .then(val => req.body = { ...req.body, usr_imgURL: val.secure_url })
 
-     next() 
+    await fs.unlink(uploadPath, (err) => {
+      if (err) {
+        return console.log("Failed to delete file")
+      }
+    })
+
+
+    next()
   } catch (e) {
     res.json(e)
   }
