@@ -1,11 +1,15 @@
+require('dotenv').config()
 const express = require('express');
 const app = express();
 const ports = process.env.PORT || 3000;
 const errorHandler = require('./controllers/error');
+const extractToken = require('./middlewares/extractToken');
+const requireAuth = require('./middlewares/requireAuth');
 
 // parser
 app.use(express.urlencoded({extended: true}));
-app.use(express.json())
+app.use(express.json());
+app.use(extractToken);
 
 // routes access
 const usersRoutes = require('./routes/user.routes.js');
@@ -19,24 +23,27 @@ const userLikesRoutes = require('./routes/like.user.routes.js');
 const userBadgesRoutes = require('./routes/badge.user.routes.js');
 const groupUsersRoutes = require('./routes/groupe.user.routes.js');
 const postRoutes = require('./routes/post.routes.js');
+const authRoutes = require('./routes/auth.routes.js');
 
-app.use('/users',  usersRoutes);
-app.use('/genders', gendersRoutes);
-app.use('/roles', rolesRoutes);
-app.use('/badges', badgesRoutes);
-app.use('/likes', likesRoutes);
-app.use('/user-roles', userRolesRoutes);
-app.use('/groups', groupeRoutes);
-app.use('/user-likes', userLikesRoutes);
-app.use('/user-badges', userBadgesRoutes);
-app.use('/user-groups', groupUsersRoutes);
-app.use('/posts', postRoutes);
 
+app.use('/users', requireAuth, usersRoutes);
+app.use('/auth', authRoutes);
+app.use('/genders', requireAuth, gendersRoutes);
+app.use('/roles', requireAuth, rolesRoutes);
+app.use('/badges', requireAuth, badgesRoutes);
+app.use('/likes', requireAuth, likesRoutes);
+app.use('/user-roles', requireAuth, userRolesRoutes);
+app.use('/groups', requireAuth, groupeRoutes);
+app.use('/user-likes', requireAuth, userLikesRoutes);
+app.use('/user-badges', requireAuth, userBadgesRoutes);
+app.use('/user-groups', requireAuth, groupUsersRoutes);
+app.use('/posts', requireAuth, postRoutes);
+
+console.log(`${process.env.JWT_PRIVATE_KEY}`)
 
 // error management
 app.use(errorHandler.errorAuthorisation);
 app.use('*', errorHandler.errorRouteHandler);
-
 
 app.listen(ports, () => console.log(`Listening on port ${ports}`));
 
