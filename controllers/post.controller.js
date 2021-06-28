@@ -31,6 +31,5 @@ exports.putPost = async (req, res, next) => {
 exports.deletePost = async (req, res, next) => {
     const deletePostResponse = await Post.delete(req.params.id);
     res.status(201).json(deletePostResponse);
-
 };
 
