@@ -7,6 +7,8 @@ exports.getAllUsers = async (req, res, next) => {
 
 exports.createUser = async (req, res, next) => {
     const clientPayload = req.files?.sampleFile ?  {...req.body, usr_image : req.files.sampleFile.name.toLowerCase() } : req.body
+    clientPayload.usr_imgURL = clientPayload.imgURL
+    delete clientPayload.imgURL
     const user = new User(clientPayload)
     const data = await User.create(user)
     res.status(201).send({data})
@@ -14,6 +16,8 @@ exports.createUser = async (req, res, next) => {
 
 exports.putUser = async (req, res, next) => {
     const clientPayload = req.files?.sampleFile ?  {...req.body, usr_image : req.files.sampleFile.name.toLowerCase() } : req.body
+    clientPayload.usr_imgURL = clientPayload.imgURL
+    delete clientPayload.imgURL
     const id = req.params.id
     const user = clientPayload
     const putUserResponse = await User.update(id, new User(user));
