@@ -13,7 +13,7 @@ exports.deleteUser = async (req, res, next) => {
 exports.createUser = async (req, res, next) => {
     const user = new User(req.body)
     const data = await User.create(user)
-    res.status(200).send()
+    res.status(200).send(data)
 };
     
 exports.putUser = async (req, res, next) => {
