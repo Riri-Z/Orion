@@ -15,6 +15,8 @@ module.exports = class User {
         this.usr_password = user.usr_password;
         this.usr_birthDate = user.usr_birthDate;
         this.usr_avatar = user.usr_avatar;
+        this.usr_image = user.usr_image;
+        this.usr_imgURL = user.usr_imgURL;
         this.id_gen = user.id_gen;
     }
 
@@ -24,26 +26,30 @@ module.exports = class User {
     
     static async create (newUser) {
         const hash = await argon2.hash(newUser.usr_password);
-        db.query('INSERT INTO user_usr(usr_firstname, usr_lastname, usr_email, usr_password, usr_birthDate, usr_createdAt, usr_avatar, id_gen) VALUES (?, ?, ?, ?, ?, NOW(), ?, ?)' , [
+        db.query('INSERT INTO user_usr(usr_firstname, usr_lastname, usr_email, usr_password, usr_birthDate, usr_createdAt, usr_avatar, usr_image,usr_imgURL, id_gen) VALUES (?, ?, ?, ?, ?, NOW(),?,?, ?, ?)' , [
             newUser.usr_firstname, 
             newUser.usr_lastname, 
             newUser.usr_email, 
             hash, 
             newUser.usr_birthDate,
             newUser.usr_avatar, 
+            newUser.usr_image, 
+            newUser.usr_imgURL,
             newUser.id_gen])
     }
 
     static async update(id, user) {
         user.id_usr = id;
         const hash = await argon2.hash(user.usr_password);
-        return db.query('UPDATE user_usr SET usr_firstname = ?, usr_lastname = ?, usr_email = ?, usr_password = ?, usr_birthDate = ?, usr_updatedAt = NOW(), usr_avatar = ?, id_gen = ? WHERE id_usr = ?' , [
+        return db.query('UPDATE user_usr SET usr_firstname = ?, usr_lastname = ?, usr_email = ?, usr_password = ?, usr_birthDate = ?, usr_updatedAt = NOW(), usr_avatar = ?, usr_image = ?,usr_imgURL=?, id_gen = ? WHERE id_usr = ?' , [
             user.usr_firstname, 
             user.usr_lastname, 
             user.usr_email, 
             hash,
             user.usr_birthDate,
             user.usr_avatar, 
+            user.usr_image,
+            user.usr_imgURL,
             user.id_gen,
             user.id_usr
         ])
