@@ -2,7 +2,9 @@ const { cloudinary } = require('../utils/cloudinary')
 const fs = require('fs')
 
 const uploadResponse = async (req, res, next) => {
+
   try {
+
     let sampleFile;
     let uploadPath;
     if (!req.files || Object.keys(req.files).length === 0) {
@@ -19,6 +21,7 @@ const uploadResponse = async (req, res, next) => {
     await cloudinary.uploader.upload(
       "middleware/uploads/" + req.files.sampleFile.name.toLowerCase())
       .then(val => req.body = { ...req.body, imgURL: val.secure_url })
+      .catch(e => console.log("Failed to upload"))
 
     await fs.unlink(uploadPath, (err) => {
       if (err) {
@@ -26,9 +29,9 @@ const uploadResponse = async (req, res, next) => {
       }
     })
 
-
     next()
   } catch (e) {
+    console.log(`NOK` )
     res.json(e)
   }
 

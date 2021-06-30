@@ -79,7 +79,9 @@ module.exports = class User {
                 throw new Error('incorrect password');
             } else {
             const data = { email: user.email, id: user.id };
+            console.log(`data`, data)
             const token = jwt.sign(data, JWT_PRIVATE_KEY, { expiresIn: '24h' });
+            console.log(`token`, token)
             return token;
             }
         }
