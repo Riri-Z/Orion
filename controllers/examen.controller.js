@@ -10,8 +10,7 @@ exports.getOne = async (req, res, next ) => {
   res.status(200).json(examen)
 }
 
-exports.createExamens = async (req, res, next) => {
-  console.log("tot",req.body)
+exports.createExamen = async (req, res, next) => {
   const clientPayload = req.body
   clientPayload.exa_cover = clientPayload.imgURL
   delete clientPayload.imgURL    
@@ -21,7 +20,7 @@ exports.createExamens = async (req, res, next) => {
 };
 
 
-exports.putExamens =  async(req, res, next ) =>  {
+exports.putExamen =  async(req, res, next ) =>  {
   const clientPayload = req.body
     clientPayload.exa_cover = clientPayload.imgURL
     delete clientPayload.imgURL

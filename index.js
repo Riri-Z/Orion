@@ -29,6 +29,7 @@ const userBadgesRoutes = require('./routes/badge.user.routes.js');
 const groupUsersRoutes = require('./routes/groupe.user.routes.js');
 const postRoutes = require('./routes/post.routes.js');
 const examenRoutes = require('./routes/examen.routes.js');
+const questionRoutes = require('./routes/question.routes.js');
 const authRoutes = require('./routes/auth.routes.js');
 
 
@@ -48,6 +49,7 @@ app.use('/posts', requireAuth, postRoutes);
 
 //routes exa  == quizz 
 app.use('/examens', examenRoutes)
+app.use('/questions', questionRoutes)
 console.log(`${process.env.JWT_PRIVATE_KEY}`)
 
 // error management

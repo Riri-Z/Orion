@@ -24,7 +24,6 @@ module.exports = class Examen {
   }
 
   static create(newExamen) {
-    console.log(`newExamen`, newExamen)
     return db.query(' INSERT INTO exam_exa(id_exa, exa_title, exa_cover, exa_createdAt, exa_publishedAt, exa_updatedAt, exa_deletedAt, id_usr) VALUES ( ?, ?, ?, ?, ?, ?, ?, ?)', [
       newExamen.id_exa,
       newExamen.exa_title,
@@ -52,6 +51,6 @@ module.exports = class Examen {
   }
 
   static delete(id) {
-    return db.query('DELETE FROM exam_exa WHERE id_exa', [id])
+    return db.query('DELETE FROM exam_exa WHERE id_exa = ?', [id])
   }
 }
