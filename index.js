@@ -31,6 +31,7 @@ const postRoutes = require('./routes/post.routes.js');
 const examenRoutes = require('./routes/examen.routes.js');
 const questionRoutes = require('./routes/question.routes.js');
 const choiceRoutes = require('./routes/choice.routes.js');
+const answerRoutes = require('./routes/answer.routes.js');
 const authRoutes = require('./routes/auth.routes.js');
 
 
@@ -52,6 +53,7 @@ app.use('/posts', requireAuth, postRoutes);
 app.use('/examens', examenRoutes)
 app.use('/questions', questionRoutes)
 app.use('/choices', choiceRoutes)
+app.use('/answer', answerRoutes)
 console.log(`${process.env.JWT_PRIVATE_KEY}`)
 
 // error management
