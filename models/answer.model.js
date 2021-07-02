@@ -5,6 +5,7 @@ module.exports = class Answer {
     this.id_ans = answer.id_ans;
     this.ans_istrue = answer.ans_istrue;
     this.ans_content = answer.ans_content;
+    this.id_exa = answer.id_exa;
   }
 
   static fetchAll() {
@@ -12,25 +13,29 @@ module.exports = class Answer {
   }
 
   static create(newAnswer) {
+
     const {
       ans_istrue,
-      ans_content
+      ans_content,
+      id_exa
     } = newAnswer
-
-    return db.query('INSERT INTO answer_ans(ans_istrue,ans_content) VALUES (?, ?)', [
+    return db.query('INSERT INTO answer_ans(ans_istrue,ans_content, id_exa) VALUES (?, ?, ?)', [
       ans_istrue,
-      ans_content
+      ans_content,
+      id_exa
     ]);
   }
 
   static update(id, answer) {
     const {
       ans_istrue,
-      ans_content
+      ans_content,
+      id_exa
     } = answer;
-    return db.query('UPDATE answer_ans SET ans_istrue = ?, ans_content = ?, WHERE id_ans = ?', [
+    return db.query('UPDATE answer_ans SET ans_istrue = ?, ans_content = ?, id_exa = ?  WHERE id_ans = ?', [
       ans_istrue,
       ans_content,
+      id_exa,
       Number(id)
     ]);
   }

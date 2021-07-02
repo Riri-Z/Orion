@@ -32,14 +32,15 @@ const examenRoutes = require('./routes/examen.routes.js');
 const questionRoutes = require('./routes/question.routes.js');
 const choiceRoutes = require('./routes/choice.routes.js');
 const answerRoutes = require('./routes/answer.routes.js');
+const funFactRoutes = require('./routes/funFact.routes.js');
 const authRoutes = require('./routes/auth.routes.js');
 
 
 app.use('/users',  /* requireAuth */ usersRoutes);
-app.use('/auth', authRoutes);
-app.use('/genders', requireAuth, gendersRoutes);
+/* app.use('/auth', authRoutes);
+ */app.use('/genders', requireAuth, gendersRoutes);
 app.use('/roles', requireAuth, rolesRoutes);
-app.use('/badges', requireAuth, badgesRoutes);
+app.use('/badges', /* requireAuth */badgesRoutes);
 app.use('/likes', requireAuth, likesRoutes);
 app.use('/user-roles', requireAuth, userRolesRoutes);
 app.use('/groups', requireAuth, groupeRoutes);
@@ -53,7 +54,8 @@ app.use('/posts', requireAuth, postRoutes);
 app.use('/examens', examenRoutes)
 app.use('/questions', questionRoutes)
 app.use('/choices', choiceRoutes)
-app.use('/answer', answerRoutes)
+app.use('/answers', answerRoutes)
+app.use('/funfacts', funFactRoutes)
 console.log(`${process.env.JWT_PRIVATE_KEY}`)
 
 // error management

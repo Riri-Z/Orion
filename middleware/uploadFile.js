@@ -31,7 +31,6 @@ const uploadResponse = async (req, res, next) => {
 
     next()
   } catch (e) {
-    console.log(`NOK` )
     res.json(e)
   }
 
