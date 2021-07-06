@@ -26,7 +26,7 @@ const postRoutes = require('./routes/post.routes.js');
 const authRoutes = require('./routes/auth.routes.js');
 
 
-app.use('/users', requireAuth, usersRoutes);
+app.use('/users',requireAuth, usersRoutes);
 app.use('/auth', authRoutes);
 app.use('/genders', requireAuth, gendersRoutes);
 app.use('/roles', requireAuth, rolesRoutes);
@@ -39,7 +39,7 @@ app.use('/user-badges', requireAuth, userBadgesRoutes);
 app.use('/user-groups', requireAuth, groupUsersRoutes);
 app.use('/posts', requireAuth, postRoutes);
 
-console.log(`${process.env.JWT_PRIVATE_KEY}`)
+
 
 // error management
 app.use(errorHandler.errorAuthorisation);

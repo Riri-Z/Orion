@@ -28,6 +28,7 @@
     "lodash": "^4.17.21",
     "mysql": "^2.18.1",
     "mysql2": "^2.2.5",
+    "nodemailer": "^6.6.2",
     "semver": "^5.7.1"
   },
   "devDependencies": {
