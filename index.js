@@ -36,7 +36,7 @@ const funFactRoutes = require('./routes/funFact.routes.js');
 const authRoutes = require('./routes/auth.routes.js');
 
 
-app.use('/users',  requireAuth, usersRoutes);
+app.use('/users',requireAuth, usersRoutes);
 app.use('/auth', authRoutes);
 app.use('/genders', requireAuth, gendersRoutes);
 app.use('/roles', requireAuth, rolesRoutes);
