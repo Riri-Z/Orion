@@ -26,6 +26,7 @@ module.exports = class User {
         this.usr_avatar = user.usr_avatar;
         this.usr_image = user.usr_image;
         this.usr_imgURL = user.usr_imgURL;
+        this.usr_isTempPassword = user.usr_isTempPassword;
         this.id_gen = user.id_gen;
     }
 
@@ -44,11 +45,12 @@ module.exports = class User {
         if (!user) {
             newUser.usr_password = getRandomString(10);
             const hash = await argon2.hash(newUser.usr_password);
+            newUser.usr_isTempPassword = 1;
 
             await db.query("begin");
 
             try {
-                await db.query('INSERT INTO user_usr(usr_firstname, usr_lastname, usr_email, usr_password, usr_birthDate, usr_createdAt, usr_avatar, usr_image, usr_imgURL, id_gen) VALUES (?, ?, ?, ?, ?, NOW(), ?, ?, ?, ?)', [
+                await db.query('INSERT INTO user_usr(usr_firstname, usr_lastname, usr_email, usr_password, usr_birthDate, usr_createdAt, usr_avatar, usr_image, usr_imgURL, usr_isTempPassword, id_gen) VALUES (?, ?, ?, ?, ?, NOW(), ?, ?, ?, ?, ?)', [
                     newUser.usr_firstname,
                     newUser.usr_lastname,
                     newUser.usr_email,
@@ -57,12 +59,13 @@ module.exports = class User {
                     newUser.usr_avatar,
                     newUser.usr_image, 
                     newUser.usr_imgURL,
+                    newUser.usr_isTempPassword,
                     newUser.id_gen]);
 
                 const transporter = nodemailer.createTransport(
                     {
-                        host: "smtp.gmail.com", //smtp.gmail.com
-                        port: 587, // 465 587
+                        host: "smtp.gmail.com",
+                        port: 587,
                         secure: false,
                         auth: {
                             user: 'contact.dev.orion@gmail.com',
@@ -105,8 +108,9 @@ module.exports = class User {
 
     static async update(id, user) {
         user.id_usr = id;
+        user.usr_isTempPassword = 1;
         const hash = await argon2.hash(user.usr_password);
-        return db.query('UPDATE user_usr SET usr_firstname = ?, usr_lastname = ?, usr_email = ?, usr_password = ?, usr_birthDate = ?, usr_updatedAt = NOW(), usr_avatar = ?, usr_image = ?,usr_imgURL=?, id_gen = ? WHERE id_usr = ?', [
+        return db.query('UPDATE user_usr SET usr_firstname = ?, usr_lastname = ?, usr_email = ?, usr_password = ?, usr_birthDate = ?, usr_updatedAt = NOW(), usr_avatar = ?, usr_image = ?,usr_imgURL=?, usr_isTempPassword=?, id_gen = ? WHERE id_usr = ?', [
             user.usr_firstname,
             user.usr_lastname,
             user.usr_email,
@@ -116,6 +120,7 @@ module.exports = class User {
             user.usr_image,
             user.usr_imgURL,
             user.id_gen,
+            user.usr_isTempPassword,
             user.id_usr
         ])
     }
@@ -187,18 +192,30 @@ module.exports = class User {
         return db.query('SELECT * FROM user_usr WHERE id_usr = ?', [id])
     }
 
+    static async updatePassword(id, password) {
+        console.log('tata');
+        console.log(id, password);
+        const hash = await argon2.hash(password);
+        return db.query('UPDATE user_usr SET usr_password = ?, usr_isTempPassword = 0 WHERE id_usr = ?', [
+            hash,
+            id
+        ]);
+    }
+
     static async login(email, password) {
         const user = await User.findByEmail(email);
         if (!user) {
             throw new Error('user not found');
         } else {
+
             const passwordIsValid = await argon2.verify(user.usr_password, password);
             if (!passwordIsValid) {
                 throw new Error('incorrect password');
             } else {
                 const data = { email: user.email, id: user.id };
                 const token = jwt.sign(data, JWT_PRIVATE_KEY, { expiresIn: '24h' });
-                return token;
+                const result = { id: user.id_usr, token: token, isTempPassword: user.usr_isTempPassword };
+                return result;
             }
         }
     }

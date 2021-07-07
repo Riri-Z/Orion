@@ -1,7 +1,8 @@
 exports.errorHandler = (controller) => {
+
     return async (req, res, next) => {
         try {
-            await controller(req, res)
+            await controller(req, res);
         } catch ({
             code,
             message,
