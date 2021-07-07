@@ -7,9 +7,9 @@ const expressFileUpload = require('express-fileupload')
 const errorHandler = require('./controllers/error');
 const extractToken = require('./middlewares/extractToken');
 const requireAuth = require('./middlewares/requireAuth');
-
+var cors = require('cors');
+app.use(cors());
 // parser
-
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json())
 app.use(expressFileUpload());
@@ -36,11 +36,11 @@ const funFactRoutes = require('./routes/funFact.routes.js');
 const authRoutes = require('./routes/auth.routes.js');
 
 
-app.use('/users',  /* requireAuth */ usersRoutes);
-/* app.use('/auth', authRoutes);
- */app.use('/genders', requireAuth, gendersRoutes);
+app.use('/users',  requireAuth, usersRoutes);
+app.use('/auth', authRoutes);
+app.use('/genders', requireAuth, gendersRoutes);
 app.use('/roles', requireAuth, rolesRoutes);
-app.use('/badges', /* requireAuth */badgesRoutes);
+app.use('/badges', requireAuth,badgesRoutes);
 app.use('/likes', requireAuth, likesRoutes);
 app.use('/user-roles', requireAuth, userRolesRoutes);
 app.use('/groups', requireAuth, groupeRoutes);

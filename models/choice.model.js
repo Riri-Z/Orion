@@ -48,4 +48,9 @@ module.exports = class Choice {
   static delete(id) {
     return db.query('DELETE FROM choice_cho WHERE id_cho = ?', [id]);
   }
+
+  static getSpecific(id_que, id_exa) {
+
+    return db.query('SELECT * FROM choice_cho WHERE id_que = ? AND id_exa = ?', [id_que, id_exa]);
+  }
 }

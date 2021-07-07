@@ -12,6 +12,10 @@ module.exports = class Answer {
     return db.execute('SELECT * FROM answer_ans');
   }
 
+  static fetchSpecific(id) {
+    return db.execute('SELECT * FROM answer_ans WHERE ');
+  }
+
   static create(newAnswer) {
 
     const {

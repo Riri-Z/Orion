@@ -30,3 +30,11 @@ exports.delete = async (req, res, next) => {
     res.status(201).json(deleteChoiceResponse);
 };
 
+exports.getSpecific = async (req, res, next) => {
+    const question = req.query
+    const [choices] = await Choice.getSpecific(question.id_que, question.id_exa);
+    res.status(201).json(choices);
+};
+
+
+

@@ -5,6 +5,11 @@ exports.getAll = async (req, res) => {
     res.status(200).json(allAnswers);
 };
 
+exports.getAnswerForOneQuizz = async(req,res) => {
+    const [answers] =await Answer.fetchSpecific(req.params.id)
+    res.status(200).json(answers)
+}
+
 exports.create = async (req, res) => {
 
         const clientPayload =  req.body
