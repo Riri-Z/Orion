@@ -88,3 +88,4 @@ node_modules/
 config/config.json
 .vscode/launch.json
 .env
+task.md
