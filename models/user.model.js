@@ -108,21 +108,32 @@ module.exports = class User {
 
     static async update(id, user) {
         user.id_usr = id;
-        user.usr_isTempPassword = 1;
-        const hash = await argon2.hash(user.usr_password);
-        return db.query('UPDATE user_usr SET usr_firstname = ?, usr_lastname = ?, usr_email = ?, usr_password = ?, usr_birthDate = ?, usr_updatedAt = NOW(), usr_avatar = ?, usr_image = ?,usr_imgURL=?, usr_isTempPassword=?, id_gen = ? WHERE id_usr = ?', [
-            user.usr_firstname,
-            user.usr_lastname,
-            user.usr_email,
-            hash,
-            user.usr_birthDate,
-            user.usr_avatar,
-            user.usr_image,
-            user.usr_imgURL,
-            user.id_gen,
-            user.usr_isTempPassword,
-            user.id_usr
-        ])
+
+        if(user.usr_password){
+            console.log('toto');
+            updatePassword(id, user.usr_password)
+        }
+
+        if(user.usr_imgURL){
+            return db.query('UPDATE user_usr SET usr_firstname = ?, usr_lastname = ?, usr_birthDate = ?, usr_updatedAt = NOW(),usr_imgURL=?, id_gen = ? WHERE id_usr = ?', [
+                user.usr_firstname,
+                user.usr_lastname,
+                user.usr_birthDate,
+                user.usr_imgURL,
+                user.id_gen,
+                user.id_usr
+            ])
+        } else {
+            return db.query('UPDATE user_usr SET usr_firstname = ?, usr_lastname = ?, usr_birthDate = ?, usr_updatedAt = NOW(), id_gen = ? WHERE id_usr = ?', [
+                user.usr_firstname,
+                user.usr_lastname,
+                user.usr_birthDate,
+                user.id_gen,
+                user.id_usr
+            ])
+        }
+
+        
     }
 
     static async reset(email) {
@@ -193,8 +204,6 @@ module.exports = class User {
     }
 
     static async updatePassword(id, password) {
-        console.log('tata');
-        console.log(id, password);
         const hash = await argon2.hash(password);
         return db.query('UPDATE user_usr SET usr_password = ?, usr_isTempPassword = 0 WHERE id_usr = ?', [
             hash,
@@ -219,4 +228,10 @@ module.exports = class User {
             }
         }
     }
+
+    static async getUserProfil(id) {
+        return db.query(
+            'SELECT *, (SELECT COUNT(*) FROM message_mes WHERE message_mes.mes_receiver = user_usr.id_usr AND message_mes.mes_readAt IS NULL) AS messages, (SELECT COUNT(*) FROM like_lik WHERE like_lik.id_usr = user_usr.id_usr) AS stars, (SELECT COUNT(*) FROM user_badge_usb WHERE user_badge_usb.id_usr = user_usr.id_usr) AS badges FROM user_usr WHERE user_usr.id_usr = ?', [id]);
+    }
+
 }

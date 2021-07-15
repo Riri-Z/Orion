@@ -8,9 +8,9 @@ const extractToken = require('./middlewares/extractToken');
 const requireAuth = require('./middlewares/requireAuth');
 var cors = require('cors');
 app.use(cors());
+app.use(express.urlencoded({extended: true}));
 // parser
-app.use(express.urlencoded({ extended: true }));
-app.use(express.json());
+app.use(express.json({limit: '50mb'}));
 app.use(expressFileUpload());
 app.use(express.static('middleware'));  // to fetch data http://localhost:3000/uploads/200.png => http://localhost:3000/uploads/ + `filename`
 app.use(extractToken);

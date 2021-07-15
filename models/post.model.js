@@ -18,15 +18,30 @@ module.exports = class Post {
         return db.execute('SELECT * FROM post_pos');
     }
     
+    static fetchAllParent(){
+        return db.execute('SELECT id_pos, pos_content, pos_createdAt , (SELECT COUNT(*) FROM post_pos b WHERE b.id_parent = post_pos.id_pos) AS answers, (SELECT COUNT(*) FROM like_lik WHERE like_lik.id_pos = post_pos.id_pos) AS stars,(SELECT usr_firstname FROM user_usr WHERE user_usr.id_usr = post_pos.id_usr) AS usr_firstname, (SELECT usr_lastname FROM user_usr WHERE user_usr.id_usr = post_pos.id_usr) AS usr_lastname, (SELECT usr_imgURL FROM user_usr WHERE user_usr.id_usr = post_pos.id_usr) AS avatar FROM post_pos WHERE post_pos.id_parent IS NULL;');
+    }
+
+    static fetchAllChildren(){
+        return db.execute('SELECT id_pos, pos_content, pos_createdAt, id_parent, (SELECT COUNT(*) FROM like_lik WHERE like_lik.id_pos = post_pos.id_pos) AS stars, (SELECT usr_firstname FROM user_usr WHERE user_usr.id_usr = post_pos.id_usr) AS usr_firstname, (SELECT usr_lastname FROM user_usr WHERE user_usr.id_usr = post_pos.id_usr) AS usr_lastname, (SELECT usr_imgURL FROM user_usr WHERE user_usr.id_usr = post_pos.id_usr) AS avatar FROM post_pos WHERE post_pos.id_parent IS NOT NULL;');
+    }
+
+
     static create(newPost) {
-        return db.query('INSERT INTO post_pos(pos_content, pos_createdAt, pos_updatedAt, pos_deletedAt,pos_image,pos_imgURL, id_exa, id_usr, id_parent) VALUES (?, ?, ?, ?, ?, ?, ?, ? , ? )' , [
+        // return db.query('INSERT INTO post_pos(pos_content, pos_createdAt, pos_updatedAt, pos_deletedAt,pos_image,pos_imgURL, id_exa, id_usr, id_parent) VALUES (?, ?, ?, ?, ?, ?, ?, ? , ? )' , [
+        //     newPost.pos_content,
+        //     newPost.pos_createdAt,
+        //     newPost.pos_updatedAt,
+        //     newPost.pos_deletedAt,
+        //     newPost.pos_image,
+        //     newPost.pos_imgURL,
+        //     newPost.id_exa,
+        //     newPost.id_usr,
+        //     newPost.id_parent
+        // ]);
+
+        return db.query('INSERT INTO post_pos(pos_content, pos_createdAt, id_usr, id_parent) VALUES (?, NOW(), ?, ?)' , [
             newPost.pos_content,
-            newPost.pos_createdAt,
-            newPost.pos_updatedAt,
-            newPost.pos_deletedAt,
-            newPost.pos_image,
-            newPost.pos_imgURL,
-            newPost.id_exa,
             newPost.id_usr,
             newPost.id_parent
         ]);

@@ -7,6 +7,7 @@ const upload = require ('../middleware/uploadFile');
 
 router.post('/', upload,  errorHandler.errorHandler(usersController.createUser));
 router.get('/', errorHandler.errorHandler(usersController.getAllUsers));
+router.get('/:id', errorHandler.errorHandler(usersController.getOneUser));
 router.put('/:id', upload,errorHandler.errorHandler(usersController.putUser));
 router.delete('/:id', errorHandler.errorHandler(usersController.deleteUser));
 

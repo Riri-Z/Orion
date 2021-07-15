@@ -6,12 +6,25 @@ exports.getAllPosts = async (req, res, next) => {
 
 };
 
+exports.getAllParentPosts = async (req, res, next) => {
+    const [allParents] = await Post.fetchAllParent();
+    res.status(200).json(allParents);
+
+};
+
+exports.getAllChildrenPosts = async (req, res, next) => {
+    const [allChildren] = await Post.fetchAllChildren();
+    console.log(allChildren);
+    res.status(200).json(allChildren);
+
+};
+
 exports.createPost = async (req, res, next) => {
-    const clientPayload = req.files?.sampleFile ?  {...req.body, pos_image : req.files.sampleFile.name.toLowerCase() } : req.body
-    clientPayload.pos_imgURL = clientPayload.imgURL
-    delete clientPayload.imgURL    
-    const post = new Post(clientPayload)
-    const data = await Post.create(post)
+    // const clientPayload = req.files?.sampleFile ?  {...req.body, pos_image : req.files.sampleFile.name.toLowerCase() } : req.body
+    // clientPayload.pos_imgURL = clientPayload.imgURL
+    // delete clientPayload.imgURL    
+    // const post = new Post(clientPayload)
+    const data = await Post.create(req.body)
     res.status(201).send({ data })
 
 };

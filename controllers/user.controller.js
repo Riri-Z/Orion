@@ -5,6 +5,11 @@ exports.getAllUsers = async (req, res, next) => {
     res.status(200).json(allUsers);
 };
 
+exports.getOneUser = async (req, res, next) => {
+    const user = await User.getUserProfil(req.params.id);
+    res.status(200).json(user);
+};
+
 exports.deleteUser = async (req, res, next) => {
     const deleteUserResponse = await User.delete(req.params.id);
     res.status(204).json(deleteUserResponse);
@@ -20,7 +25,9 @@ exports.createUser = async (req, res, next) => {
 };
     
 exports.putUser = async (req, res, next) => {
-    const clientPayload = req.files?.sampleFile ?  {...req.body, usr_image : req.files.sampleFile.name.toLowerCase() } : req.body;
+    // const clientPayload = req.files?.sampleFile ?  {...req.body, usr_image : req.files.sampleFile.name.toLowerCase() } : req.body;
+
+    const clientPayload = req.body;
     clientPayload.usr_imgURL = clientPayload.imgURL;
     delete clientPayload.imgURL;
     const id = req.params.id;
