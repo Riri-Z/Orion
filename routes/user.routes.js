@@ -2,7 +2,7 @@
 const usersController = require('../controllers/user.controller.js');
 const router = require('express').Router();
 const errorHandler = require('../controllers/error');
-const upload = require ('../middleware/uploadFile');
+const upload = require ('../middlewares/uploadFile');
 
 
 router.post('/', upload,  errorHandler.errorHandler(usersController.createUser));
