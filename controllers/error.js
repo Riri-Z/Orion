@@ -1,14 +1,31 @@
-exports.get404 = (req, res, next) => {
-    const error = new Error('Not found');
-    error.status = 404;
-    next(error);
-};
+exports.errorHandler = (controller) => {
 
-exports.get500 = (error, req, res, next) => {
-    res.status(error.status || 500);
-    res.json({
-        error: {
-            message: error.message,
-        },
+    return async (req, res, next) => {
+        try {
+            await controller(req, res);
+        } catch ({
+            code,
+            message,
+            status
+        }) {
+            res.status(status || 500)
+                .json({
+                    code,
+                    message
+                })
+        }
+    }
+}
+
+exports.errorAuthorisation = (req, res, next) => {
+    res.setHeader('Access-Control-Allow-Origin', '*');
+    res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE');
+    res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization');
+    next();
+}
+
+exports.errorRouteHandler = (req, res) => {
+    res.status(404).json({
+        error: 'Not found'
     });
-};
+}

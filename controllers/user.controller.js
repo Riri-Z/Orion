@@ -1,56 +1,48 @@
 const User = require('../models/user.model');
 
 exports.getAllUsers = async (req, res, next) => {
-    try{
-        const [allUsers] = await User.fetchAll();
-        res.status(200).json(allUsers);
-    }catch(err){
-        if(!err.statusCode){
-            err.statusCode = 500
-        }
-        next(err);
-    }
+    const [allUsers] = await User.fetchAll();
+    res.status(200).json(allUsers);
 };
 
-exports.createUser = async (req, res, next) => {
-    const  clientPayload = req.body 
-    try{
-     const user = new User(clientPayload)
-     const data = await User.create(user)
-     res.status(201).send({data})
-    }catch(err){  
-         if(!err.statusCode){
-            err.statusCode = 500
-        }
-        next(err); 
-    }
-};
-
-
-exports.putUser = async (req, res, next) => {
-    try{
-        const id = req.params.id
-        const user = req.body
-
-        const putUserResponse = await User.update(id, new User(user));
-        res.status(201).json(putUserResponse);
-    }catch(err){
-        if(!err.statusCode){
-            err.statusCode = 500
-        }
-        next(err);
-    }
+exports.getOneUser = async (req, res, next) => {
+    const user = await User.getUserProfil(req.params.id);
+    res.status(200).json(user);
 };
 
 exports.deleteUser = async (req, res, next) => {
-    try{
-        const deleteUserResponse = await User.delete(req.params.id);
-        res.status(201).json(deleteUserResponse);
-    }catch(err){
-        if(!err.statusCode){
-            err.statusCode = 500
-        }
-        next(err);
-    }
+    const deleteUserResponse = await User.delete(req.params.id);
+    res.status(204).json(deleteUserResponse);
 };
 
+exports.createUser = async (req, res, next) => {
+    const clientPayload = req.files?.sampleFile ?  {...req.body, usr_image : req.files.sampleFile.name.toLowerCase() } : req.body;
+    clientPayload.usr_imgURL = clientPayload.imgURL;
+    delete clientPayload.imgURL;
+    const user = new User(clientPayload);
+    const data = await User.create(user);
+    res.status(200).send(data);
+};
+    
+exports.putUser = async (req, res, next) => {
+    // const clientPayload = req.files?.sampleFile ?  {...req.body, usr_image : req.files.sampleFile.name.toLowerCase() } : req.body;
+
+    const clientPayload = req.body;
+    clientPayload.usr_imgURL = clientPayload.imgURL;
+    delete clientPayload.imgURL;
+    const id = req.params.id;
+    const user = clientPayload;
+    const putUserResponse = await User.update(id, new User(user));
+    res.status(201).json(putUserResponse);
+};
+
+exports.deleteUser = async (req, res, next) => {
+    const deleteUserResponse = await User.delete(req.params.id);
+    res.status(204).json(deleteUserResponse);
+};
+
+
+exports.upload = async (req,res) =>  {
+    const picture = req.file ? req.file.path.replace('\\', '/') : null;
+    res.status(200).send( '/' + picture);
+}
