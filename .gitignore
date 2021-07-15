@@ -9,7 +9,7 @@
 
 # Java class files
 *.class
-
+.vscode/
 # Generated files
 bin/
 gen/

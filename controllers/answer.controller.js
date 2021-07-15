@@ -5,6 +5,13 @@ exports.getAll = async (req, res) => {
     res.status(200).json(allAnswers);
 };
 
+
+exports.getSpecific = async (req, res, next) => {
+    const question = req.query
+    const [allAnswers] = await Answer.getSpecific(question.id_que);
+    res.status(201).json(allAnswers);
+};
+
 exports.getAnswerForOneQuizz = async(req,res) => {
     const [answers] =await Answer.fetchSpecific(req.params.id)
     res.status(200).json(answers)
@@ -12,10 +19,10 @@ exports.getAnswerForOneQuizz = async(req,res) => {
 
 exports.create = async (req, res) => {
 
-        const clientPayload =  req.body
-        const answer = new Answer(clientPayload)
-        const data = await Answer.create(answer)
-        res.status(201).send({ data })
+    const clientPayload = req.body
+    const answer = new Answer(clientPayload)
+    const data = await Answer.create(answer)
+    res.status(201).send({ data })
 
 };
 

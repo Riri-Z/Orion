@@ -29,12 +29,13 @@ CREATE TABLE IF NOT EXISTS `user_usr` (
   `usr_createdAt` DATE NOT NULL,
   `usr_updatedAt` DATE NULL,
   `usr_avatar` VARCHAR(255) NULL,
+  `usr_image` VARCHAR(255) NULL,
+  `usr_imgURL` VARCHAR(255) NULL,
   `id_gen` INT NULL,
   PRIMARY KEY (`id_usr`),
   FOREIGN KEY (`id_gen`) REFERENCES `gender_gen` (`id_gen`)) ENGINE = InnoDB;
 
-  ALTER TABLE `user_usr`
-  CHANGE `usr_avatar` `usr_image` char(255) NULL
+
 
 -- -----------------------------------------------------
 -- Table `orion_db`.`role_rol`
@@ -143,7 +144,8 @@ CREATE TABLE IF NOT EXISTS `like_lik` (
 CREATE TABLE IF NOT EXISTS `badge_bab` (
   `id_bab` INT NOT NULL AUTO_INCREMENT,
   `bab_name` VARCHAR(45) NOT NULL,
-  `bab_description` VARCHAR(255) NOT NULL,
+  `bab_image` VARCHAR(255) ,
+  `bab_imgURL` VARCHAR(255) ,
   PRIMARY KEY (`id_bab`)) ENGINE = InnoDB;
 
 
@@ -237,7 +239,6 @@ CREATE TABLE IF NOT EXISTS `post_pos` (
   `id_exa` INT NULL,
   `id_parent` INT NULL,
   `id_usr` INT NOT NULL,
-  `id_parent` INT NULL,
   PRIMARY KEY (`id_pos`),
   FOREIGN KEY (`id_exa`) REFERENCES `exam_exa` (`id_exa`),
   FOREIGN KEY (`id_parent`) REFERENCES `post_pos` (`id_pos`),
